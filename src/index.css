@@ -1,13 +1,164 @@
-body {
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --primary: #f8931f;
+  --secondary: #000000;
+  --light: #ffffff;
+  --grey: #81817f;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.nav {
+  background-color: var(--primary);
+  border-bottom: 2px solid var(--secondary);
+  box-shadow: 1px 1px 1px 1px var(--secondary);
+}
+
+.color-light {
+  color: var(--light) !important;
+}
+
+.btn {
+  background-color: var(--secondary);
+  border: 1px solid var(--secondary);
+  color: var(--primary);
+}
+
+.btn:hover {
+  background-color: var(--light);
+  border: 1px solid var(--light);
+  color: var(--primary);
+}
+
+.dark-color {
+  color: var(--light);
+}
+
+.dark-color:hover {
+  color: var(--light);
+  text-decoration: none;
+  border-bottom: 3px solid var(--grey);
+}
+
+.jumbotron {
+  height: 500px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background-image: linear-gradient(180deg, var(--secondary), var(--grey));
+  border-radius: 0px;
+  margin: 0px;
+}
+
+.about {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+
+}
+
+.orange-bg {
+  background-color: var(--primary);
+  color: var(--light);
+  padding: 50px;
+}
+
+.orange-border {
+  border-bottom: 3px solid var(--grey);
+  border-right: 3px solid var(--primary);
+  padding-bottom: 13px;
+}
+
+.services {
+  padding: 17px;
+  transition: 1s all;
+}
+
+.services:hover {
+  background-color: var(--grey);
+  border-radius: 20px;
+  color: var(--light);
+}
+
+.grey {
+  background-image: linear-gradient(180deg, var(--secondary), var(--grey));
+  color: var(--light);
+}
+
+.darkbrown {
+  color: var(--grey);
+}
+
+.dark-text {
+  color: var(--secondary);
+}
+
+.work {
+  padding: 17px;
+  transition: 1s all;
+}
+
+.work:hover {
+  background-color: rgb(100, 93, 93);
+  border-radius: 20px;
+  color: var(--light);
+}
+
+.green {
+  color: green;
+}
+
+.purple {
+  color: purple;
+}
+
+.btn-2 {
+  background-color: var(--primary);
+  border: 1px solid var(--secondary);
+  color: var(--light);
+  width: 100%;
+}
+
+.btn-2:hover {
+  background-color: var(--light);
+  border: 1px solid var(--light);
+  color: var(--primary);
+}
+
+.btn-3 {
+  background-color: var(--secondary);
+  border: 1px solid var(--secondary);
+  color: var(--primary);
+  width: 100%;
+}
+
+.btn-3:hover {
+  background-color: var(--light);
+  border: 1px solid var(--light);
+  color: var(--primary);
+}
+
+.darkcolor {
+  color: var(--grey);
+}
+
+.darkcolor:hover {
+  color: var(--grey);
+  text-decoration: none;
+  border-bottom: 3px solid var(--light);
+}
+
+.faq {
+  height: 200px;
+}
+
+.darkorange {
+  color: var(--primary);
 }
