@@ -162,3 +162,29 @@ body {
 .darkorange {
   color: var(--primary);
 }
+
+.apply {
+  background-color: var(--grey);
+  color: var(--light);
+}
+
+.apply_form {
+  background-color: var(--light);
+  height: 450px;
+}
+
+.apply_number {
+  border: 1px solid var(--grey);
+  border-radius: 1px;
+  padding: 10px;
+  color: var(--secondary);
+
+}
+
+.apply_hr {
+  display: inline-block;
+  width: 70px;
+  background-color: var(--grey);
+  height: 5px;
+  margin: 3px;
+}

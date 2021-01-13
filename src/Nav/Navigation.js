@@ -36,7 +36,7 @@ function Navigation() {
       <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="ml-auto">
         <span className="mt-2 color-light">Existing Customer?</span> &nbsp;<Link to="/dashboard"><Button variant="primary" size="sm" className="btn-2 mt-1">Click here</Button></Link>&nbsp; &nbsp; &nbsp;
-      <Link to="/apply"><Button variant="primary">Apply Now</Button></Link>
+      <Link to="/apply/step-1"><Button variant="primary">Apply Now</Button></Link>
       </Nav>
       </Navbar.Collapse>
       
