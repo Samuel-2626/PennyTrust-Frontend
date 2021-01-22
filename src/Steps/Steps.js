@@ -222,7 +222,7 @@ function Steps() {
 
       passValidation3()
 
-    }, [city, address, number, email, cityError, numberError, emailError, addressError])
+    }, [city, address, number, email, cityError, numberError, emailError, addressError, stateOfNigeria])
   
   
   
