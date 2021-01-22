@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 
-import { Link } from 'react-router-dom';
+
 
 function Step3() {
   return (
@@ -87,9 +87,8 @@ function Step3() {
     </Form>
     <small>N.B: Applications with referral code are processed faster</small>
     <br />
-
-      <Link to="/apply/step-2"><Button variant="primary">Previous</Button></Link>
-      <Link to="/apply/step-4"><Button variant="primary">Next</Button></Link>
+<Button variant="primary" className="btn-4">Previous</Button>
+ <Button variant="primary" className="btn-4">Next</Button>
     </div>
   )
 }

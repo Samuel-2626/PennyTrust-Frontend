@@ -63,9 +63,8 @@ function Step4() {
       </Container>
      
     </Form>
-
-      <Link to="/apply/step-3"><Button variant="primary">Previous</Button></Link>
-      <Link to="/apply/step-5"><Button variant="primary">Next</Button></Link>
+      <Button variant="primary" className="btn-4">Previous</Button>
+     <Button variant="primary" className="btn-4">Next</Button>
     </div>
   )
 }
