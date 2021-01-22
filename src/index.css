@@ -218,18 +218,18 @@ body {
 
 
 .apply_border {
-  border: 1px solid var(--primary);
+  border: 2px solid var(--primary);
   border-radius: 1px;
   padding: 10px;
   color: var(--secondary);
-  transition: all 1s;
+  transition: all 1s ease-in-out;
 }
 
 .apply_background {
   background-color: var(--primary);
   border: 1px solid var(--primary);
   color: white;
-  transition: all 1s;
+  transition: all 1s ease-in-out;
 }
 
 input[type="date"]::before {

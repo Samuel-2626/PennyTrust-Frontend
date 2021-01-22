@@ -211,7 +211,7 @@ function Steps() {
 
       function passValidation3() {
 
-        if (cityError === '' && numberError === '' && emailError !== '' && addressError !== '') {
+        if (cityError === '' && numberError === '' && emailError === '' && addressError === '') {
           setNext4(false)
         } else {
           setNext4(true)
