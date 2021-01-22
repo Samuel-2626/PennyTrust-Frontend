@@ -57,24 +57,6 @@ function Steps() {
   
     }
   
-    const passValidation1 = () => {
-      if (amountValidation === '' && tenor !== '') {
-        setNext1(false)
-      } else {
-        setNext1(true)
-      }
-    }
-
-    const passValidation2 = () => {
-      if (errorFirstName === '' && errorLastName === '' && title !== '' && gender !== '' && date !== '') {
-        console.log(date);
-        setNext3(false)
-      } else {
-        setNext3(true)
-        console.log(date);
-      }
-
-    }
   
     const handleSubmitClick1 = () => {
       setStep3(false)
@@ -128,13 +110,35 @@ function Steps() {
 
   
    
-    useEffect(() => (
-      passValidation1()
-    ), [amount, tenor])
+    useEffect(() => {
 
-    useEffect(() => (
-      passValidation2()
-    ), [l_name, f_name, title, gender])
+      function passValidation1() {
+        if (amountValidation === '' && tenor !== '') {
+          setNext1(false)
+        } else {
+          setNext1(true)
+        }
+      }
+
+      passValidation1();
+
+    }, [tenor, amountValidation])
+
+    useEffect(() => {
+      function passValidation2() {
+        if (errorFirstName === '' && errorLastName === '' && title !== '' && gender !== '' && date !== '') {
+          console.log(date);
+          setNext3(false)
+        } else {
+          setNext3(true)
+          console.log(date);
+        }
+  
+      }
+
+      passValidation2();
+
+    }, [l_name, f_name, title, gender, date, errorFirstName, errorLastName])
   
   
   

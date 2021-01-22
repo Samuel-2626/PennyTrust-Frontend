@@ -222,12 +222,14 @@ body {
   border-radius: 1px;
   padding: 10px;
   color: var(--secondary);
+  transition: all 1s;
 }
 
 .apply_background {
   background-color: var(--primary);
   border: 1px solid var(--primary);
   color: white;
+  transition: all 1s;
 }
 
 input[type="date"]::before {
