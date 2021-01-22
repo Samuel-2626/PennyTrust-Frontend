@@ -404,7 +404,9 @@ function Steps() {
         database_emails.map((database_email) => {
           if (email === database_email.email) {
             setEmailError('This email is already registered')
+            return true
           }
+          return false
         })
       })
       .catch(function (error) {
@@ -423,7 +425,9 @@ function Steps() {
         database_numbers.map((database_number) => {
           if (number === database_number.phone_number) {
             setNumberError('This phone number is already registered')
+            return true
           }
+          return false
         })
       })
       .catch(function (error) {
@@ -442,7 +446,9 @@ function Steps() {
         ippis_numbers.map((ippis_number) => {
           if (parseInt(ippis) === parseInt(ippis_number.ippis_number)) {
             setIppisError('This IPPIS number is already registered')
+            return true
           }
+          return false
         })
       })
       .catch(function (error) {
@@ -463,8 +469,9 @@ function Steps() {
         account_numbers.map((account_number) => {
           if (parseInt(account) === parseInt(account_number.account_number)) {
             setAccountError('This account number is already registered')
-            console.log(account);
+            return true
           }
+          return false
         })
       })
       .catch(function (error) {
