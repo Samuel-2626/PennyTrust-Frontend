@@ -35,6 +35,7 @@ function Steps() {
     const [cityError, setCityError] = useState('city can\'t be less than three characters');
     const [address, setAddress] = useState('');
     const [addressError, setAddressError] = useState('Address can\'t be less than ten characters');
+    const [stateOfNigeria, setStateOfNigeria] = useState('');
 
     // Get Current Date
     var today = new Date();
@@ -211,7 +212,7 @@ function Steps() {
 
       function passValidation3() {
 
-        if (cityError === '' && numberError === '' && emailError === '' && addressError === '') {
+        if (cityError === '' && numberError === '' && emailError === '' && addressError === '' && stateOfNigeria != '') {
           setNext4(false)
         } else {
           setNext4(true)
@@ -462,10 +463,48 @@ function Steps() {
             <Col lg={6}>
       
             <Form.Group controlId="formBasicEmail">
-              <Form.Control type="text" placeholder="State" />
-              <Form.Text className="text-muted">
-              </Form.Text>
-            </Form.Group>
+              <Form.Control as="select" value={stateOfNigeria} onChange={(e) => setStateOfNigeria(e.target.value)}>
+                <option value="" hidden>State</option>
+                <option value="abia">Abia</option>
+                <option value="adamawa">Adamawa</option>
+                <option value="akwaibom">Akwa Ibom</option>
+                <option value="anambra">Anambra</option>
+                <option value="bauchi">Bauchi</option>
+                <option value="bayelsa">Bayelsa</option>
+                <option value="benue">Benue</option>
+                <option value="borno">Borno</option>
+                <option value="crossriver">Cross River</option>
+                <option value="delta">Delta</option>
+                <option value="ebonyi">Ebonyi</option>
+                <option value="edo">Edo</option>
+                <option value="ekiti">Ekiti</option>
+                <option value="enugu">Enugu</option>
+                <option value="gombe">Gombe</option>
+                <option value="imo">Imo</option>
+                <option value="jigawa">Jigawa</option>
+                <option value="kaduna">Kaduna</option>
+                <option value="kano">Kano</option>
+                <option value="katsina">Katsina</option>
+                <option value="kebbi">Kebbi</option>
+                <option value="kogi">Kogi</option>
+                <option value="kwara">Kwara</option>
+                <option value="lagos">Lagos</option>
+                <option value="nasarawa">Nasawara</option>
+                <option value="niger">Niger</option>
+                <option value="ogun">Ogun</option>
+                <option value="ondo">Ondo</option>
+                <option value="osun">Osun</option>
+                <option value="oyo">Oyo</option>
+                <option value="plateau">Plateau</option>
+                <option value="rivers">Rivers</option>
+                <option value="sokoto">Sokoto</option>
+                <option value="taraba">Taraba</option>
+                <option value="yobe">Yobe</option>
+                <option value="zamfara">Zamfara</option>
+              </Form.Control>
+                <Form.Text className="text-muted">
+                </Form.Text>
+              </Form.Group>
             </Col>
       
             </Row>
