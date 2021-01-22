@@ -10,9 +10,10 @@ function Steps() {
   
 
     const [amount, setAmount] = useState('');
+    const [formattedAmount, setFormattedAmount] = useState('');
     const [amountValidation, setAmountValidation] = useState('loan amount can\'t be less than N20,000');
-    const [errorLastName, setErrorLastName] = useState('');
-    const [errorFirstName, setErrorFirstName] = useState('');
+    const [errorLastName, setErrorLastName] = useState('name can\'t be less than three character');
+    const [errorFirstName, setErrorFirstName] = useState('name can\'t be less than three character');
     const [tenor, setTenor] = useState('');
     const [title, setTitle] = useState('');
     const [next1, setNext1] = useState(true);
@@ -37,10 +38,17 @@ function Steps() {
     today = mm + '/' + dd + '/' + yyyy;
 
     end = (end_mm)  + '/' + dd + '/' + yyyy;
+
+    function currencyFormat(num) {
+      return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+   }
   
     const handleAmountChange = (e) => {
+
+     
   
       setAmount(e.target.value)
+      
   
       if (parseInt(e.target.value) < 20000) {
         setAmountValidation('loan amount can\'t be less than N20,000')
@@ -52,7 +60,9 @@ function Steps() {
         }
       else {
         setAmountValidation('')
-      }
+        let a = currencyFormat(parseInt(e.target.value))
+        setFormattedAmount(a)
+        }
       
   
     }
@@ -164,7 +174,7 @@ function Steps() {
             <table className="table table-striped table-bordered">
           <tr>
             <td>Amount</td>
-            <td>N{amount}</td>
+            <td>&#8358; {formattedAmount}</td>
           </tr>
       
           <tr>
@@ -176,7 +186,7 @@ function Steps() {
           <tr>
       
             <td>Monthly Repayment</td>
-            <td>N{ amount / tenor }</td>
+            <td>&#8358; { amount / tenor }</td>
           </tr>
       
           <tr>
