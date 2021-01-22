@@ -221,7 +221,7 @@ function Steps() {
 
       passValidation3()
 
-    }, [city, address, number, email])
+    }, [city, address, number, email, cityError, numberError, emailError, addressError])
   
   
   
