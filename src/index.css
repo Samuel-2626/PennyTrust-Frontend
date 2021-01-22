@@ -173,11 +173,12 @@ body {
   background-color: var(--light);
   height: 450px;
   overflow: scroll;
+  border-radius: 20px;
 }
 
 .apply_number {
   border: 1px solid var(--grey);
-  border-radius: 1px;
+  border-radius: 25px;
   padding: 10px;
   color: var(--secondary);
 
@@ -189,6 +190,7 @@ body {
   background-color: var(--grey);
   height: 5px;
   margin: 3px;
+  border-radius: 50px;
 }
 
 .error {
@@ -222,14 +224,16 @@ body {
   border-radius: 1px;
   padding: 10px;
   color: var(--secondary);
-  transition: all 1s ease-in-out;
+  transition: all 0.5s linear;
+  border-radius: 25px;
+
 }
 
 .apply_background {
   background-color: var(--primary);
   border: 1px solid var(--primary);
   color: white;
-  transition: all 1s ease-in-out;
+  transition: all 0.5s linear;
 }
 
 input[type="date"]::before {

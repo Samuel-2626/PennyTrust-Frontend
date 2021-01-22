@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import axios from 'axios';
 
 function Steps() {
   
@@ -20,8 +21,12 @@ function Steps() {
     const [step2, setStep2] = useState(false);
     const [step3, setStep3] = useState(false);
     const [step4, setStep4] = useState(false);
+    const [step5, setStep5] = useState(false)
+    const [step6, setStep6] = useState(false)
     const [next3, setNext3] = useState(true);
     const [next4, setNext4] = useState(true);
+    const [next5, setNext5] = useState(true)
+    const [next6, setNext6] = useState(true)
     const [l_name, setL_name] = useState('');
     const [f_name, setF_name] = useState('');
     const [gender, setGender] = useState('');
@@ -36,6 +41,19 @@ function Steps() {
     const [address, setAddress] = useState('');
     const [addressError, setAddressError] = useState('Address can\'t be less than ten characters');
     const [stateOfNigeria, setStateOfNigeria] = useState('');
+
+    const [account, setAccount] = useState('')
+    const [ippis, setIppis] = useState('')
+    const [work, setWork] = useState('')
+    const [salary, setSalary] = useState('')
+    const [accountError, setAccountError] = useState('account number can\'t be less than 7 characters')
+    const [ippisError, setIppisError] = useState('ippis number can\'t be less than 7 characters')
+    const [workError, setWorkError] = useState('work place number can\'t be less than 5 characters')
+
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [passwordError, setPasswordError] = useState('Password must be atleast 7 characters')
+    const [confirmPasswordError, setConfirmPasswordError] = useState('Password must be atleast 7 characters')
 
     // Get Current Date
     var today = new Date();
@@ -76,19 +94,31 @@ function Steps() {
       
   
     }
+
+    const handleSubmitClick0 = () => {
+      setStep2(false)
+      setStep3(false)
+      setStep4(false)
+      setStep5(false)
+    }
   
   
     const handleSubmitClick1 = () => {
       setStep3(false)
-      setStep2(true)    
+      setStep2(true) 
+      setStep5(false)
+      setStep4(false)   
     }
 
     const handleSubmitClick2 = () => {
       setStep2(false) 
       setStep3(true)
+      setStep5(false)
+      setStep4(false) 
+      
     }
 
-    
+        
     const handleFirstNameChange = (e) => {
       setF_name(e.target.value)
       if (e.target.value.length < 3) {
@@ -121,11 +151,46 @@ function Steps() {
     const handleSubmitClick3 = () => {
       setStep3(false)
       setStep4(true)
+      setStep5(false)
+      setStep2(false) 
     }
 
     const handleSubmitClick4 = () => {
       setStep4(false)
       setStep3(true)
+      setStep5(false)
+      setStep2(false) 
+    }
+
+    const handleSubmitClick5 = () => {
+      setStep4(false)
+      setStep5(true)
+      setStep2(false)
+      setStep3(false) 
+    }
+
+    const handleSubmitClick6 = () => {
+      setStep4(true)
+      setStep5(false)
+      setStep3(false)
+      setStep2(false) 
+    }
+
+    const handleSubmitClick7 = () => {
+      setStep4(false)
+      setStep5(true)
+      setStep3(false)
+      setStep2(false) 
+      setStep6(false) 
+    }
+
+    const handleSubmitClick8 = () => {
+      setStep6(true)
+      setStep5(false)
+      setStep3(false)
+      setStep2(false) 
+      setStep4(false) 
+
     }
 
     const handleEmail = (e) => {
@@ -177,6 +242,78 @@ function Steps() {
 
     }
 
+    const handleIppis = (e) => {
+      setIppis(e.target.value)
+
+      if ((e.target.value.length) < 8) {
+        setIppisError('IPPIS Number must be atleast 7 characters')
+       } else if(Number.isInteger(parseInt(e.target.value) ) === false) {
+        setIppisError('Only numbers allowed')
+       }
+      else {
+        setIppisError('')
+        }
+
+    }
+
+    const handleWork = (e) => {
+      setWork(e.target.value)
+
+      if ((e.target.value.length) < 5) {
+        setWorkError('Place of work must be atleast 5 characters')
+       } 
+      else {
+        setWorkError('')
+        }
+
+    }
+
+    const handleAccount = (e) => {
+      setAccount(e.target.value)
+
+      if ((e.target.value.length) < 8) {
+        setAccountError('Account Number must be atleast 7 characters')
+       } else if(Number.isInteger(parseInt(e.target.value) ) === false) {
+        setAccountError('Only numbers allowed')
+       }
+      else {
+        setAccountError('')
+        }
+
+    }
+
+    const handlePassword = (e) => {
+
+      setPassword(e.target.value)
+
+      if ((e.target.value.length) < 8) {
+        setPasswordError('Password must be atleast 7 characters')
+       } 
+      else {
+        setPasswordError('')
+        }
+
+    }
+
+    const handleConfirmPassword = (e) => {
+
+      setConfirmPassword(e.target.value)
+
+      if ((e.target.value.length) < 8) {
+        setConfirmPasswordError('Password must be atleast 7 characters')
+       } else if(password !== e.target.value) {
+        setConfirmPasswordError('Password did not match')
+       }
+      else {
+        setConfirmPasswordError('')
+        }
+
+    }
+
+    const handleFinalSubmit = () => {
+
+    }
+
   
    
     useEffect(() => {
@@ -223,6 +360,119 @@ function Steps() {
       passValidation3()
 
     }, [city, address, number, email, cityError, numberError, emailError, addressError, stateOfNigeria])
+
+
+    useEffect(() => {
+
+      function passValidation4() {
+
+        if (ippisError === '' && accountError === '' && salary !== "" && workError === '') {
+          setNext5(false)
+        } else {
+          setNext5(true)
+        }
+
+      }
+
+      passValidation4()
+
+    }, [ippisError, accountError, salary, workError])
+
+    useEffect(() => {
+
+      function passValidation5() {
+
+        if (passwordError === '' && confirmPasswordError === '') {
+          setNext6(false)
+        } else {
+          setNext6(true)
+        }
+
+      }
+
+      passValidation5()
+
+    }, [passwordError, confirmPasswordError])
+
+
+    useEffect(() => {
+
+      axios.get('https://fathomless-beach-00475.herokuapp.com/apis/v1/get_users_email/')
+      .then(function (response) {
+        // handle success
+        let database_emails = response.data
+        database_emails.map((database_email) => {
+          if (email === database_email.email) {
+            setEmailError('This email is already registered')
+          }
+        })
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+     
+    }, [email])
+
+    useEffect(() => {
+
+      axios.get('https://fathomless-beach-00475.herokuapp.com/apis/v1/get_profiles_phone_number/')
+      .then(function (response) {
+        // handle success
+        let database_numbers = response.data
+        database_numbers.map((database_number) => {
+          if (number === database_number.phone_number) {
+            setNumberError('This phone number is already registered')
+          }
+        })
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+     
+    }, [number])
+
+    useEffect(() => {
+
+      axios.get('https://fathomless-beach-00475.herokuapp.com/apis/v1/get_profiles_ippis_number/')
+      .then(function (response) {
+        // handle success
+        let ippis_numbers = response.data
+        ippis_numbers.map((ippis_number) => {
+          if (parseInt(ippis) === parseInt(ippis_number.ippis_number)) {
+            setIppisError('This IPPIS number is already registered')
+          }
+        })
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+     
+    }, [ippis])
+
+
+    useEffect(() => {
+
+      axios.get('https://fathomless-beach-00475.herokuapp.com/apis/v1/get_profiles_account_number/')
+      .then(function (response) {
+        // handle success
+        let account_numbers = response.data
+        
+        account_numbers.map((account_number) => {
+          if (parseInt(account) === parseInt(account_number.account_number)) {
+            setAccountError('This account number is already registered')
+            console.log(account);
+          }
+        })
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+     
+    }, [account])
   
   
   
@@ -290,7 +540,7 @@ function Steps() {
             </small>
           </p>
             
-            <Button variant="primary" className="btn-4" onClick={() => setStep2(false)}>Previous</Button>
+            <Button variant="primary" className="btn-4" onClick={handleSubmitClick0}>Previous</Button>
             <Button variant="primary" className="btn-4" onClick={handleSubmitClick2}>Start Application</Button>
           </div>
           </Col>
@@ -316,12 +566,12 @@ function Steps() {
           <div className="text-dark text-center m-4">
             <h6><strong>Personal Information</strong></h6>
       
-            <Form>
+            <Form autoComplete="off">
             <Container>
               <Row>
               <Col lg={4}>
       
-              <Form.Group controlId="formBasicEmail">
+              <Form.Group controlId="">
               <Form.Control as="select" value={title} onChange={(e) => setTitle(e.target.value)}>
                 <option value="" hidden>Title</option>
                 <option value="mr">Mr</option>
@@ -336,7 +586,7 @@ function Steps() {
               </Col>
             <Col lg={4}>
       
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="">
               <Form.Control type="text" placeholder="First Name" value={f_name} onChange={handleFirstNameChange}  />
               <Form.Text className="text-muted">
               <small className="error">{errorFirstName}</small>
@@ -346,7 +596,7 @@ function Steps() {
             </Col>
             <Col lg={4}>
       
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="">
               <Form.Control type="text" placeholder="Last Name" value={l_name} onChange={handleLasttNameChange}  />
               <Form.Text className="text-muted">  
               <small className="error">{errorLastName}</small>
@@ -356,7 +606,7 @@ function Steps() {
       
             <Col lg={4}>
       
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="">
               <input type="date" id="start" name="trip-start"
        placeholder="Date of Birth"
        min="1960-12-31" max="2000-12-31" className="form-control" required value={date} onChange={handleDate}></input>
@@ -367,7 +617,7 @@ function Steps() {
       
             <Col lg={4}>
       
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="">
               <Form.Control as="select" value={gender} onChange={(e) => setGender(e.target.value)}>
                 <option value="" hidden>Gender</option>
                 <option value="male">Male</option>
@@ -380,7 +630,7 @@ function Steps() {
       
             <Col lg={4}>
       
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="">
               <Form.Control type="text" placeholder="Referral Code" value={code} onChange={handleCode} />
               <Form.Text className="text-muted">
               </Form.Text>
@@ -417,13 +667,13 @@ function Steps() {
           <div className="text-dark text-center m-4">
             <h6><strong>Contact Information</strong></h6>
       
-            <Form>
+            <Form autoComplete="off">
             <Container>
               <Row>
               <Col lg={6}>
       
-              <Form.Group controlId="formBasicEmail">
-              <Form.Control type="eamil" placeholder="Email" value={email} onChange={handleEmail}  />
+              <Form.Group controlId="">
+              <Form.Control type="eamil" placeholder="Email" value={email} onChange={handleEmail} />
               <Form.Text className="text-muted">
               <small className="error">{emailError}</small>
               </Form.Text>
@@ -431,7 +681,7 @@ function Steps() {
               </Col>
             <Col lg={6}>
       
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="">
               <Form.Control type="text" placeholder="Phone Number" value={number} onChange={handleNumber} />
               <Form.Text className="text-muted">
               <small className="error">{numberError}</small>
@@ -441,7 +691,7 @@ function Steps() {
             </Col>
             <Col lg={12}>
 
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="">
             <textarea className="form-control" placeholder="Home Address" value={address} onChange={handleAddress} />
               <Form.Text className="text-muted">
               <small className="error">{addressError}</small>
@@ -452,7 +702,7 @@ function Steps() {
       
             <Col lg={6}>
       
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="">
               <Form.Control type="text" placeholder="City" value={city} onChange={handleCity} />
               <Form.Text className="text-muted">
               <small className="error">{cityError}</small>
@@ -462,7 +712,7 @@ function Steps() {
       
             <Col lg={6}>
       
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="">
               <Form.Control as="select" value={stateOfNigeria} onChange={(e) => setStateOfNigeria(e.target.value)}>
                 <option value="" hidden>State</option>
                 <option value="abia">Abia</option>
@@ -512,12 +762,157 @@ function Steps() {
            
           </Form>
             <Button variant="primary" className="btn-4" onClick={handleSubmitClick4}>Previous</Button>
-           <Button variant="primary" className="btn-4" disabled={next4}>Next</Button>
+           <Button variant="primary" className="btn-4" disabled={next4} onClick={handleSubmitClick5}>Next</Button>
           </div>
         
         </Col>
         )
       }
+
+    if (step5) {
+      return (
+        <Col lg={8} className="apply_form p-3">
+        <div className="text-center">
+          <big className="apply_number apply_background">1</big>
+          <hr className="apply_hr apply_background" />
+          <big className="apply_number apply_background">2</big>
+          <hr className="apply_hr apply_background" />
+          <big className="apply_number apply_background">3</big>
+          <hr className="apply_hr apply_background" />
+          <big className="apply_number apply_background">4</big>
+          <hr className="apply_hr apply_background" />
+          <big className="apply_number apply_border">5</big>
+        </div>
+
+        <div className="text-dark text-center m-4">
+          <h6><strong>Employment Information</strong></h6>
+    
+          <Form autoComplete="off">
+          <Container>
+            <Row>
+            <Col lg={6}>
+    
+          <Form.Group controlId="">
+            <Form.Control type="text" placeholder="Place of work" value={work} onChange={handleWork} />
+            <Form.Text className="text-muted">
+            <small className="error">{workError}</small>
+            </Form.Text>
+          </Form.Group>
+          </Col>
+          <Col lg={6}>
+    
+          <Form.Group controlId="">
+            <Form.Control type="text" placeholder="IPPIS Number" value={ippis} onChange={handleIppis} />
+            <Form.Text className="text-muted">
+            <small className="error">{ippisError}</small>
+            </Form.Text>
+          </Form.Group>
+          </Col>
+          <Col lg={6}>
+    
+          <Form.Group controlId="">
+          <Form.Control as="select" value={salary} onChange={(e) => setSalary(e.target.value)}>
+            <option value="" hidden>Salary Bank Name</option>
+            <option value="access">Access Bank Plc</option>
+            <option value="citi">Citibank Nigeria Limited</option>
+            <option value="eco">Ecobank Nigeria Plc</option>
+            <option value="fidelity">Fidelity Banl Plc</option>
+            <option value="monument">First City Monument Bank Limited</option>
+            <option value="first">First Bank of Nigeria Limited</option>
+            <option value="guaranty">Guaranty Trust Bank Plc</option>
+            <option value="keystone">Keystone Bank Limited</option>
+            <option value="polaris">Polaris Bank Limited</option>
+            <option value="stanbic">Stanbic IBTC Bank Plc</option>
+            <option value="standard">Standard Chartered</option>
+            <option value="sterling">Sterling Bank Plc</option>
+            <option value="titan">Titan Trust Bank Limited</option>
+            <option value="union">Union Bank of Nigeria Plc</option>
+            <option value="united">United Bank for Afria Plc</option>
+            <option value="unity">Unity Bank Plc</option>
+            <option value="wema">Wema Bank Plc</option>
+            <option value="zenith">Zenith Bank Plc</option>
+            
+            </Form.Control>
+            <Form.Text className="text-muted">
+            </Form.Text>
+          </Form.Group>
+          </Col>
+          <Col lg={6}>
+    
+          <Form.Group controlId="">
+            <Form.Control type="text" placeholder="Account Number" value={account} onChange={handleAccount} />
+            <Form.Text className="text-muted">
+            <small className="error">{accountError}</small>
+            </Form.Text>
+          </Form.Group>
+          </Col>
+          <Col lg={6}></Col>
+    
+          </Row>
+          </Container>
+         
+        </Form>
+    
+         <Button variant="primary" className="btn-4" onClick={handleSubmitClick6}>Previous</Button>
+        <Button variant="primary" className="btn-4" disabled={next5} onClick={handleSubmitClick8}>Next</Button>
+        </div>
+      </Col>
+      )
+    }
+
+    if (step6) {
+      return (
+      <Col lg={8} className="apply_form p-3">
+            <div className="text-center">
+              <big className="apply_number apply_background">1</big>
+              <hr className="apply_hr apply_background" />
+              <big className="apply_number apply_background">2</big>
+              <hr className="apply_hr apply_background" />
+              <big className="apply_number apply_background">3</big>
+              <hr className="apply_hr apply_background" />
+              <big className="apply_number apply_background">4</big>
+              <hr className="apply_hr apply_background" />
+              <big className="apply_number apply_background">5</big>
+            </div>
+            
+      
+        <div className="text-dark text-center m-4">
+          <h6><strong>Almost Complete</strong></h6>
+          <Form autoComplete="off">
+          <Container>
+            <Row>
+            <Col lg={12}>
+    
+          <Form.Group controlId="">
+            <Form.Control type="password" placeholder="Password" value={password} onChange={handlePassword} />
+            <Form.Text className="text-muted">
+            <small className="error">{passwordError}</small>
+            </Form.Text>
+          </Form.Group>
+          </Col>
+          <Col lg={12}>
+    
+          <Form.Group controlId="">
+            <Form.Control type="password" placeholder="Confirm Password" value={confirmPassword} onChange={handleConfirmPassword} />
+            <Form.Text className="text-muted">
+            <small className="error">{confirmPasswordError}</small>
+            </Form.Text>
+          </Form.Group>
+          </Col>
+    
+        
+    
+          </Row>
+          </Container>
+         
+        </Form>
+    
+         <Button variant="primary" className="btn-4" onClick={handleSubmitClick7}>Previous</Button>
+        <Button variant="primary" className="btn-4" disabled={next6} onClick={handleFinalSubmit}>Submit Application</Button>
+        </div>
+      </Col>
+      )
+    }
   
   
   
@@ -539,12 +934,12 @@ function Steps() {
       <div className="text-dark text-center m-4">
         <h6><strong>Kindly provide the amount you want and your preferred duration</strong></h6>
       
-        <Form>
+        <Form autoComplete="off">
         <Container>
           <Row>
           <Col lg={6}>
   
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group controlId="">
   
           {/* 20,000 <= loan amount <= 1,000,000 */}
   
@@ -560,7 +955,7 @@ function Steps() {
   
         <Col lg={6}>
   
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group controlId="">
         <Form.Control as="select" value={tenor} onChange={(e) => setTenor(e.target.value)}>
           <option value="" hidden>Tenor</option>
           <option value="2">2 Months</option>
