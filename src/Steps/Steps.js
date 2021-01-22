@@ -212,7 +212,7 @@ function Steps() {
 
       function passValidation3() {
 
-        if (cityError === '' && numberError === '' && emailError === '' && addressError === '' && stateOfNigeria != '') {
+        if (cityError === '' && numberError === '' && emailError === '' && addressError === '' && stateOfNigeria !== "") {
           setNext4(false)
         } else {
           setNext4(true)
