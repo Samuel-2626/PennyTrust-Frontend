@@ -21,11 +21,20 @@ function Steps() {
     const [step3, setStep3] = useState(false);
     const [step4, setStep4] = useState(false);
     const [next3, setNext3] = useState(true);
+    const [next4, setNext4] = useState(true);
     const [l_name, setL_name] = useState('');
     const [f_name, setF_name] = useState('');
     const [gender, setGender] = useState('');
     const [code, setCode] = useState('');
     const [date, setDate] = useState('');
+    const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState('email can\'t be less than 8 characters');
+    const [number, setNumber] = useState('');
+    const [numberError, setNumberError] = useState('phone number must be eleven numbers');
+    const [city, setCity] = useState('');
+    const [cityError, setCityError] = useState('city can\'t be less than three characters');
+    const [address, setAddress] = useState('');
+    const [addressError, setAddressError] = useState('Address can\'t be less than ten characters');
 
     // Get Current Date
     var today = new Date();
@@ -118,6 +127,55 @@ function Steps() {
       setStep3(true)
     }
 
+    const handleEmail = (e) => {
+      setEmail(e.target.value)
+
+      if ((e.target.value.length) < 8) {
+        setEmailError('email can\'t be less than 8 characters')
+       } 
+      else {
+        setEmailError('')
+        }
+
+    }
+
+    const handleNumber = (e) => {
+      setNumber(e.target.value)
+
+      if ((e.target.value.length) !== 11) {
+        setNumberError('phone number must be 11 characters')
+       } else if(Number.isInteger(parseInt(e.target.value) ) === false) {
+        setNumberError('Only numbers allowed')
+      }
+      else {
+        setNumberError('')
+        }
+    }
+
+    const handleCity = (e) => {
+      setCity(e.target.value)
+
+      if ((e.target.value.length) < 3) {
+        setCityError('city must be atleast 3 characters')
+       } 
+      else {
+        setCityError('')
+        }
+
+    }
+
+    const handleAddress = (e) => {
+      setAddress(e.target.value)
+
+      if ((e.target.value.length) < 3) {
+        setAddressError('Address must be atleast 10 characters')
+       } 
+      else {
+        setAddressError('')
+        }
+
+    }
+
   
    
     useEffect(() => {
@@ -137,11 +195,9 @@ function Steps() {
     useEffect(() => {
       function passValidation2() {
         if (errorFirstName === '' && errorLastName === '' && title !== '' && gender !== '' && date !== '') {
-          console.log(date);
           setNext3(false)
         } else {
           setNext3(true)
-          console.log(date);
         }
   
       }
@@ -149,6 +205,23 @@ function Steps() {
       passValidation2();
 
     }, [l_name, f_name, title, gender, date, errorFirstName, errorLastName])
+
+
+    useEffect(() => {
+
+      function passValidation3() {
+
+        if (cityError === '' && numberError === '' && emailError !== '' && addressError !== '') {
+          setNext4(false)
+        } else {
+          setNext4(true)
+        }
+
+      }
+
+      passValidation3()
+
+    }, [city, address, number, email])
   
   
   
@@ -349,34 +422,39 @@ function Steps() {
               <Col lg={6}>
       
               <Form.Group controlId="formBasicEmail">
-              <Form.Control type="text" placeholder="Email" />
+              <Form.Control type="eamil" placeholder="Email" value={email} onChange={handleEmail}  />
               <Form.Text className="text-muted">
+              <small className="error">{emailError}</small>
               </Form.Text>
             </Form.Group>
               </Col>
             <Col lg={6}>
       
             <Form.Group controlId="formBasicEmail">
-              <Form.Control type="text" placeholder="Phone Number" />
+              <Form.Control type="text" placeholder="Phone Number" value={number} onChange={handleNumber} />
               <Form.Text className="text-muted">
+              <small className="error">{numberError}</small>
               </Form.Text>
             </Form.Group>
       
             </Col>
             <Col lg={12}>
-      
-            <textarea className="form-control" placeholder="Home Address"></textarea>
+
+            <Form.Group controlId="formBasicEmail">
+            <textarea className="form-control" placeholder="Home Address" value={address} onChange={handleAddress} />
+              <Form.Text className="text-muted">
+              <small className="error">{addressError}</small>
+              </Form.Text>
+            </Form.Group>
             <br />
-      
             </Col>
-      
-        
       
             <Col lg={6}>
       
             <Form.Group controlId="formBasicEmail">
-              <Form.Control type="text" placeholder="City" />
+              <Form.Control type="text" placeholder="City" value={city} onChange={handleCity} />
               <Form.Text className="text-muted">
+              <small className="error">{cityError}</small>
               </Form.Text>
             </Form.Group>
             </Col>
@@ -395,7 +473,7 @@ function Steps() {
            
           </Form>
             <Button variant="primary" className="btn-4" onClick={handleSubmitClick4}>Previous</Button>
-           <Button variant="primary" className="btn-4">Next</Button>
+           <Button variant="primary" className="btn-4" disabled={next4}>Next</Button>
           </div>
         
         </Col>
