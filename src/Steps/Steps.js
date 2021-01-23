@@ -33,6 +33,9 @@ function Steps() {
     const [code, setCode] = useState('');
     const [date, setDate] = useState('');
     const [email, setEmail] = useState('');
+    const [monthly, setMonthly] = useState('')
+    const [totalPayment, setTotalPayment] = useState('')
+    const [totalInterest, setTotalInterest] = useState('')
     const [emailError, setEmailError] = useState('email can\'t be less than 8 characters');
     const [number, setNumber] = useState('');
     const [numberError, setNumberError] = useState('phone number must be eleven numbers');
@@ -60,7 +63,7 @@ function Steps() {
     var end = new Date();
     var dd = String(today.getDate())
     var mm = String(today.getMonth() + 1)//January is 0!
-    var end_mm = String(today.getMonth() + tenor)//January is 0!
+    var end_mm = String(today.getMonth() + parseInt(tenor))//January is 0!
     var yyyy = today.getFullYear();
 
     today = mm + '/' + dd + '/' + yyyy;
@@ -69,6 +72,10 @@ function Steps() {
 
     function currencyFormat(num) {
       return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+   }
+
+   function round(x) {
+     return Math.round(x*100) / 100
    }
   
     const handleAmountChange = (e) => {
@@ -320,6 +327,16 @@ function Steps() {
 
       function passValidation1() {
         if (amountValidation === '' && tenor !== '') {
+          let principal = parseFloat(amount)
+          let interest = 0.25 / 100 / 12
+          let payments = parseInt(tenor) * 12
+
+          let x = Math.pow(1 + interest, payments) 
+          let Monthly = (principal * x * interest) / (x-1)
+   
+          setMonthly(round(Monthly))
+          setTotalPayment(round(Monthly * payments))
+          setTotalInterest(round((Monthly * payments) - principal))
           setNext1(false)
         } else {
           setNext1(true)
@@ -328,7 +345,7 @@ function Steps() {
 
       passValidation1();
 
-    }, [tenor, amountValidation])
+    }, [tenor, amountValidation, amount])
 
     useEffect(() => {
       function passValidation2() {
@@ -502,39 +519,51 @@ function Steps() {
           <div className="text-dark text-center m-4">
             <h6><strong>Loan Breakdown</strong></h6>
       
-            <table className="table table-striped table-bordered">
+            <table className="table table-striped table-bordered table-responsive-lg">
           <tr>
-            <td>Amount</td>
+            <td><b>Amount</b></td>
             <td>&#8358; {formattedAmount}</td>
           </tr>
       
           <tr>
       
-            <td>Duration</td>
+            <td><b>Duration</b></td>
             <td>{tenor} Months</td>
           </tr>
       
           <tr>
       
-            <td>Monthly Repayment</td>
-            <td>&#8358; { amount / tenor }</td>
+            <td><b>Monthly Payment</b></td>
+            <td>&#8358; {monthly}</td>
+          </tr>
+
+          <tr>
+      
+            <td><b>Total Payment</b></td>
+            <td>&#8358; {totalPayment}</td>
+          </tr>
+
+          <tr>
+      
+            <td><b>Total Interest Payment</b></td>
+            <td>&#8358; {totalInterest}</td>
           </tr>
       
           <tr>
       
-            <td>Loan Start Date</td>
+            <td><b>Loan Start Date</b></td>
             <td>{today}</td>
           </tr>
       
           <tr>
       
-            <td>Loan End Date</td>
+            <td><b>Loan End Date</b></td>
             <td>{end}</td>
           </tr>
       
           <tr>
       
-            <td>Interest per day</td>
+            <td><b>Interest per day</b></td>
             <td>0.25%</td>
           </tr>
           

@@ -29,6 +29,7 @@ body {
   background-color: var(--secondary) !important;
   border: 1px solid var(--secondary) !important;
   color: var(--primary) !important;
+  border-radius: 25px;
 }
 
 .btn:hover {
@@ -125,6 +126,7 @@ body {
   border: 1px solid var(--secondary) !important;
   color: var(--light) !important;
   width: 100%;
+  border-radius: 25px;
 }
 
 .btn-2:hover {
@@ -138,6 +140,7 @@ body {
   border: 1px solid var(--secondary) !important;
   color: var(--primary) !important;
   width: 100%;
+  border-radius: 25px;
 }
 
 .btn-3:hover {
@@ -171,9 +174,10 @@ body {
 
 .apply_form {
   background-color: var(--light);
-  height: 450px;
+  height: 500px;
   overflow: scroll;
   border-radius: 20px;
+  max-width: 700px;
 }
 
 .apply_number {
@@ -203,6 +207,7 @@ body {
   color: var(--primary) !important;
   width: 40%;
   margin: 20px;
+  border-radius: 25px;
 
 }
 
@@ -251,3 +256,58 @@ input[type="date"]:focus::before,
 input[type="date"]:valid::before {
 	content: "" !important;
 }
+
+@media screen and (min-width: 480px) {
+  .welcome {
+    margin-top: 70px;
+  }
+  .apply_form {
+    margin-left: 50px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .apply_number {
+    border: 1px solid var(--grey);
+    border-radius: 25px;
+    padding: 7px;
+    color: var(--secondary);
+  
+  }
+  
+  .apply_hr {
+    display: inline-block;
+    width: 20px;
+    background-color: var(--grey);
+    height: 5px;
+    margin: 3px;
+    border-radius: 50px;
+  }
+
+  .apply_border {
+    border: 2px solid var(--primary);
+    border-radius: 1px;
+    padding: 7px;
+    color: var(--secondary);
+    transition: all 0.5s linear;
+    border-radius: 25px;
+  
+  }
+  
+  .apply_background {
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
+    color: white;
+    transition: all 0.5s linear;
+  }
+
+  .btn-4 {
+    background-color: var(--secondary) !important;
+    border: 1px solid var(--secondary) !important;
+    color: var(--primary) !important;
+    width: 100%;
+    border-radius: 25px;
+  
+  }
+}
+
