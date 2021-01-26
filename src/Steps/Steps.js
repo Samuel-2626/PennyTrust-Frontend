@@ -13,7 +13,7 @@ import {UserContext} from '../UserContext';
 
 function Steps() {
 
-    const [token, setToken] = useContext(UserContext)
+    const [setToken] = useContext(UserContext)
 
     const [redirect, setRedirect] = useState(false)
 

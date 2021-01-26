@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -11,7 +11,7 @@ import {UserContext} from '../UserContext';
 
 function Navigation() {
 
-  const [token, setToken] = useContext(UserContext);
+  const [token] = useContext(UserContext);
 
   if (token === '') {
 

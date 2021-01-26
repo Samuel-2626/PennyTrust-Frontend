@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
@@ -44,7 +44,7 @@ function Dashboard() {
         <Container>
           <h2>Welcome to your dashboard</h2>
           
-          {/* <Button variant="primary" className="btn-4" onClick={handleClick}>Play</Button> */}
+
         </Container>
       </div>
     )
