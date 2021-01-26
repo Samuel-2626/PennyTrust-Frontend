@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Steps from '../Steps/Steps'
 
 
+
 function Apply() {
   return (
     <div className="apply">
@@ -18,8 +19,9 @@ function Apply() {
             PennyTrust Inc. is a fast- growing licensed micro lender in Nigeria. Based in Lagos, Nigeria. PCSL provides personal loans to salaried workers across the country through its innovative technology platform (PennyTrust TM). Today we help low to middle income earners gain quick, convenient, and secure access to loans that they desperately need.
             </p>
           </Col>
-          
-          <Steps />
+        
+            <Steps />
+        
         </Row>
       </Container>
     </div>

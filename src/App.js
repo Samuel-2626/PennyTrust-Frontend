@@ -9,10 +9,12 @@ import Dashboard from './Dashboard/Dashboard'
 
 import { Route, Switch } from 'react-router-dom';
 
+import { UserProvider } from './UserContext'
+
 function App() {
   return (
     <div className="App">
-   
+      <UserProvider>
       <Navigation />
       <Switch>
       <Route path="/" component={Home} exact />
@@ -23,6 +25,7 @@ function App() {
       <Route component={Error} />
       </Switch>
       <Footer /> 
+      </UserProvider>
       
 
     </div>

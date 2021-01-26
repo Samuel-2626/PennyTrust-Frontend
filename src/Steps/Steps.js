@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
@@ -7,8 +7,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 
+import {Redirect} from 'react-router-dom'
+
+import {UserContext} from '../UserContext';
+
 function Steps() {
-  
+
+    const [token, setToken] = useContext(UserContext)
+
+    const [redirect, setRedirect] = useState(false)
 
     const [amount, setAmount] = useState('');
     const [formattedAmount, setFormattedAmount] = useState('');
@@ -27,6 +34,8 @@ function Steps() {
     const [next4, setNext4] = useState(true);
     const [next5, setNext5] = useState(true)
     const [next6, setNext6] = useState(true)
+    const [authenticating, setAuthenticating] = useState(false)
+    const [failed, setFailed] = useState(false)
     const [l_name, setL_name] = useState('');
     const [f_name, setF_name] = useState('');
     const [gender, setGender] = useState('');
@@ -318,6 +327,45 @@ function Steps() {
     }
 
     const handleFinalSubmit = () => {
+      setStep2(false) 
+      setStep3(false)
+      setStep5(false)
+      setStep4(false) 
+      setStep6(false)
+      setFailed(false)
+      setAuthenticating(true)
+
+
+      axios.post('https://fathomless-beach-00475.herokuapp.com/api/v1/rest-auth/registration/', {
+        email: email,
+        password1: password,
+        password2: confirmPassword,
+      })
+      .then(function (response) {
+
+      setToken(response.data.key)
+
+      setStep2(false) 
+      setStep3(false)
+      setStep5(false)
+      setStep4(false) 
+      setStep6(false)
+      setFailed(false)
+      setAuthenticating(false)
+
+      setRedirect(true)
+
+      })
+      .catch(function (error) {
+      setStep2(false) 
+      setStep3(false)
+      setStep5(false)
+      setStep4(false) 
+      setStep6(false)
+      setAuthenticating(false)
+      setFailed(true)
+      console.log(error);
+      });
 
     }
 
@@ -497,6 +545,12 @@ function Steps() {
       })
      
     }, [account])
+
+    if (redirect) {
+      return (
+        <Redirect to="/dashboard" />
+      )
+    }
   
   
   
@@ -679,6 +733,8 @@ function Steps() {
           </Form>
           <small>N.B: Applications with referral code are processed faster</small>
           <br />
+          <br />
+          <br />
       <Button variant="primary" className="btn-4" onClick={handleSubmitClick1}>Previous</Button>
        <Button variant="primary" className="btn-4" disabled={next3} onClick={handleSubmitClick3}>Next</Button>
           </div>
@@ -797,6 +853,8 @@ function Steps() {
             </Container>
            
           </Form>
+          <br />
+          <br />
             <Button variant="primary" className="btn-4" onClick={handleSubmitClick4}>Previous</Button>
            <Button variant="primary" className="btn-4" disabled={next4} onClick={handleSubmitClick5}>Next</Button>
           </div>
@@ -888,6 +946,8 @@ function Steps() {
           </Container>
          
         </Form>
+        <br />
+        <br />
     
          <Button variant="primary" className="btn-4" onClick={handleSubmitClick6}>Previous</Button>
         <Button variant="primary" className="btn-4" disabled={next5} onClick={handleSubmitClick8}>Next</Button>
@@ -942,12 +1002,38 @@ function Steps() {
           </Container>
          
         </Form>
+        <br />
+        <br />
     
          <Button variant="primary" className="btn-4" onClick={handleSubmitClick7}>Previous</Button>
         <Button variant="primary" className="btn-4" disabled={next6} onClick={handleFinalSubmit}>Submit Application</Button>
         </div>
       </Col>
       )
+    }
+
+    if (authenticating) {
+
+      return (
+        <Col lg={8} className="text-center apply_form p-3 text-dark">
+             <h3>Loading...</h3>
+        </Col>
+      )
+
+    }
+
+    if (failed) {
+
+      return (
+        <Col lg={8} className="text-center apply_form p-3 text-dark">
+             <h3>Server Error, Please try again later</h3>
+             <br />
+             <br />
+             <br />
+             <Button variant="primary" className="btn-4" onClick={handleSubmitClick7}>Go Back</Button>
+        </Col>
+      )
+
     }
   
   
@@ -1027,6 +1113,10 @@ function Steps() {
         </Container>
        
       </Form>
+      <br />
+      <br />
+      <br />
+      
   <Button variant="primary" disabled={next1} className="btn-4" onClick={handleSubmitClick1}>Next</Button>
       </div>
       </Col>
