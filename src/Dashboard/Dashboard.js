@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
@@ -7,44 +7,53 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import {UserContext} from '../UserContext';
-// import axios from 'axios';
+import {PrimaryKeyContext} from '../UserContext';
+import axios from 'axios';
 
 
 
 function Dashboard() {
 
-  const [token, setToken] = useContext(UserContext);
+  const [token] = useContext(UserContext);
+  const [pk] = useContext(PrimaryKeyContext);
 
-  // const handleClick = (e) => {
+  const [profile, setProfile] = useState({})
+
  
-  
 
-  //   console.log(token);
-  //   axios.get('http://127.0.0.1:8000/apis/v1/get_user/', {
-  //     // headers: {
-  //     //   'Authorization': `Token e328056771a518ff288da8f5e311f10576cc2c18
-  //     //   `
-  //     // }
-  //   }).then(function (response) {
-  //       // handle success
-  //       console.log(response.data);
-  //     })
-  //     .catch(function (error) {
-  //       // handle error
-  //       console.log(error);
-  //     })
-  //     .then(function () {
-  //       // always executed
-  //     });
-  // }
+  useEffect(() => (
+
+    axios.get(`https://fathomless-beach-00475.herokuapp.com/apis/v1/get_profile/${pk}`, {
+        headers: {
+          'Authorization': `Token ${token}`
+        }
+      }).then((res) => {
+        setProfile(res.data.fields);
+        console.log(res.data.fields);
+      }).catch((error) => {
+        console.log(error);
+      })
+
+  ), [pk, token])
+
 
   if (token !== '') {
     return (
       <div className="m-5">
         <Container>
-          <h2>Welcome to your dashboard</h2>
+          <h2>Hello {profile.first_name}</h2>
+          <p>welcome to your dashboard</p>
+          <p><strong>Here are some of your details:</strong></p>
           
-          {/* <Button variant="primary" className="btn-4" onClick={handleClick}>Play</Button> */}
+         <ul>
+           <li>{profile.first_name} {profile.last_name}</li>
+           <li>{profile.date_of_birth}</li>
+           <li>{profile.gender}</li>
+           <li>{profile.address}</li>
+           <li>{profile.title}</li>
+           <li>{profile.phone_number}</li>
+         </ul>
+          
         </Container>
       </div>
     )
@@ -83,7 +92,7 @@ function Dashboard() {
          
         </Form>
 
-        <Button variant="primary" className="btn-4" onClick={setToken()}>Login</Button>
+        <Button variant="primary" className="btn-4">Login</Button>
         <Button variant="primary" className="btn-4">forgot password</Button>
 
       </Container>

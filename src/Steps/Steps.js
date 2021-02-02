@@ -10,10 +10,12 @@ import axios from 'axios';
 import {Redirect} from 'react-router-dom'
 
 import {UserContext} from '../UserContext';
+import {PrimaryKeyContext} from '../UserContext'
 
 function Steps() {
 
-    const [setToken] = useContext(UserContext)
+    const [token, setToken] = useContext(UserContext)
+    const [pk, setPk] = useContext(PrimaryKeyContext)
 
     const [redirect, setRedirect] = useState(false)
 
@@ -161,7 +163,7 @@ function Steps() {
 
     const handleDate = (e) => {
       setDate(e.target.value)
-      console.log(date);
+ 
     }
 
     const handleSubmitClick3 = () => {
@@ -344,6 +346,50 @@ function Steps() {
       .then(function (response) {
 
       setToken(response.data.key)
+      console.log(token);
+
+      var temp_token = response.data.key
+
+      axios.get(`https://fathomless-beach-00475.herokuapp.com/apis/v1/get_user/${email}`, {
+        headers: {
+          'Authorization': `Token ${temp_token}`
+        }
+      }).then((res) => {
+
+        setPk(res.data.pk)
+        console.log(pk);
+
+        var temp_pk = res.data.pk
+
+        axios.post(`https://fathomless-beach-00475.herokuapp.com/apis/v1/profile/`, {
+          user: temp_pk,
+          title: title,
+          first_name: f_name,
+          last_name: l_name,
+          gender: gender,
+          date_of_birth: date,
+          phone_number: number,
+          city: city,
+          state: stateOfNigeria,
+          place_of_work: work,
+          loan_amount: amount,
+          tenor: tenor,
+          address: address,
+          ippis_number: ippis,
+          salary_bank_name: salary,
+          account_number: account,
+          referral_code: code
+        
+
+      }).catch((error) => {
+        console.log(error);
+      })
+
+
+      }).catch((error) => {
+        console.log(error);
+      })
+
 
       setStep2(false) 
       setStep3(false)
