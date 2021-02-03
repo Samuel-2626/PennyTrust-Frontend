@@ -44,7 +44,7 @@ function Dashboard() {
 
 
   const handleLogin = () => {
-    axios.post(`http://127.0.0.1:8000/api/v1/rest-auth/login/`, {
+    axios.post(`https://fathomless-beach-00475.herokuapp.com/api/v1/rest-auth/login/`, {
         email: email,
         password: password
       }).then((res) => {
@@ -53,7 +53,7 @@ function Dashboard() {
 
         var temp_token = res.data.key
 
-        axios.get(`http://127.0.0.1:8000/apis/v1/get_user/${email}`, {
+        axios.get(`https://fathomless-beach-00475.herokuapp.com/apis/v1/get_user/${email}`, {
           headers: {
             'Authorization': `Token ${temp_token}`
           }
@@ -106,7 +106,7 @@ function Dashboard() {
 
   useEffect(() => (
 
-    axios.get(`http://127.0.0.1:8000/apis/v1/get_profile/${pk}`, {
+    axios.get(`https://fathomless-beach-00475.herokuapp.com/apis/v1/get_profile/${pk}`, {
         headers: {
           'Authorization': `Token ${token}`
         }

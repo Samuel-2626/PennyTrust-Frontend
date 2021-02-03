@@ -398,7 +398,7 @@ function allLetter(inputtxt)
       setAuthenticating(true)
 
 
-      axios.post('http://127.0.0.1:8000/api/v1/rest-auth/registration/', {
+      axios.post('https://fathomless-beach-00475.herokuapp.com/api/v1/rest-auth/registration/', {
         email: email,
         password1: password,
         password2: confirmPassword,
@@ -410,7 +410,7 @@ function allLetter(inputtxt)
 
       var temp_token = response.data.key
 
-      axios.get(`http://127.0.0.1:8000/apis/v1/get_user/${email}`, {
+      axios.get(`https://fathomless-beach-00475.herokuapp.com/apis/v1/get_user/${email}`, {
         headers: {
           'Authorization': `Token ${temp_token}`
         }
@@ -430,7 +430,7 @@ function allLetter(inputtxt)
 
         var temp_pk = res.data.pk
 
-        axios.post(`http://127.0.0.1:8000/apis/v1/profile/`, {
+        axios.post(`https://fathomless-beach-00475.herokuapp.com/apis/v1/profile/`, {
           user: temp_pk,
           title: title,
           first_name: f_name,
