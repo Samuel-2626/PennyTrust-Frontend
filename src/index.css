@@ -311,3 +311,10 @@ input[type="date"]:valid::before {
   }
 }
 
+.error-background {
+  background-color: crimson;
+  color: #fff;
+  font-size: large;
+  font-weight: bolder;
+  text-align: center;
+}

@@ -8,10 +8,35 @@ import logo from '../images/PennyTrustLogoSmall.jpg';
 import { Link } from 'react-router-dom';
 
 import {UserContext} from '../UserContext';
+import {PrimaryKeyContext} from '../UserContext';
+import {StaffStatusContext} from '../UserContext';
+
+import axios from 'axios';
 
 function Navigation() {
 
-  const [token] = useContext(UserContext);
+  const [token, setToken] = useContext(UserContext);
+  const [pk, setPk] = useContext(PrimaryKeyContext);
+  const [status, setStatus] = useContext(StaffStatusContext);
+
+
+  const handleLogout = () => {
+    
+    axios.post(`http://127.0.0.1:8000/api/v1/rest-auth/logout/`, {
+        headers: {
+          'Authorization': `Token ${token}`
+        }
+      }).then((res) => {
+        setToken('')
+        setPk(null)
+        setStatus('')
+        console.log(pk);
+        console.log(status);
+        console.log(res.data);
+      }).catch((error) => {
+        console.log(error);
+      })
+  }
 
   if (token === '') {
 
@@ -81,8 +106,7 @@ function Navigation() {
         </Navbar.Collapse>
         <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto">
-          <span className="mt-2 color-light">Hello</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <Link to="/apply"><Button variant="primary" className="btn">Logout</Button></Link>
+           <Link to="/apply"><Button variant="primary" className="btn" onClick={handleLogout}>Logout</Button></Link>
         </Nav>
         </Navbar.Collapse>
         

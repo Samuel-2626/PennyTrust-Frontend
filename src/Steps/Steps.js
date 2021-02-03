@@ -11,11 +11,13 @@ import {Redirect} from 'react-router-dom'
 
 import {UserContext} from '../UserContext';
 import {PrimaryKeyContext} from '../UserContext'
+import {StaffStatusContext} from '../UserContext'
 
 function Steps() {
 
     const [token, setToken] = useContext(UserContext)
     const [pk, setPk] = useContext(PrimaryKeyContext)
+    const [status, setStatus] = useContext(StaffStatusContext)
 
     const [redirect, setRedirect] = useState(false)
 
@@ -66,8 +68,8 @@ function Steps() {
 
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    const [passwordError, setPasswordError] = useState('Password must be atleast 7 characters')
-    const [confirmPasswordError, setConfirmPasswordError] = useState('Password must be atleast 7 characters')
+    const [passwordError, setPasswordError] = useState('Password must be atleast 10 characters')
+    const [confirmPasswordError, setConfirmPasswordError] = useState('Password must be atleast 10 characters')
 
     // Get Current Date
     var today = new Date();
@@ -88,6 +90,41 @@ function Steps() {
    function round(x) {
      return Math.round(x*100) / 100
    }
+
+   function ValidateEmail(mail) 
+{
+  let re =  /\S+@\S+\.\S+/;
+  return re.test(mail);
+}
+
+function allLetter(inputtxt)
+  {
+   let re = /^[A-Za-z]+$/;
+   return re.test(inputtxt);
+  }
+
+  function alphanumeric(inputtxt)
+{
+ let re = /^[a-zA-Z0-9\s,.'-]{3,}$/;
+ return re.test(inputtxt);
+
+  }
+
+
+
+   function checkPassword(str)
+  {
+    // at least one number, one lowercase and one uppercase letter
+    // at least eight characters
+    let re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;
+    return re.test(str);
+  }
+
+  function allnumeric(inputtxt)
+   {
+      let re = /^[0-9]+$/;
+      return re.test(inputtxt);
+   } 
   
     const handleAmountChange = (e) => {
 
@@ -103,6 +140,8 @@ function Steps() {
        }
         else if(Number.isInteger(parseInt(e.target.value) ) === false) {
           setAmountValidation('Only numbers allowed')
+        } else if (allnumeric(e.target.value) === false) {
+          setAmountValidation('Please input numeric characters only')
         }
       else {
         setAmountValidation('')
@@ -141,6 +180,8 @@ function Steps() {
       setF_name(e.target.value)
       if (e.target.value.length < 3) {
         setErrorFirstName('name can\'t be less than three character')
+      } else if (allLetter(e.target.value) === false) {
+        setErrorFirstName('Please input alphabet characters only')
       }
       else {
         setErrorFirstName('')
@@ -151,6 +192,8 @@ function Steps() {
       setL_name(e.target.value)
       if (e.target.value.length < 3) {
         setErrorLastName('name can\'t be less than three character')
+      } else if (allLetter(e.target.value) === false) {
+        setErrorLastName('Please input alphabet characters only')
       }
       else {
         setErrorLastName('')
@@ -216,7 +259,9 @@ function Steps() {
 
       if ((e.target.value.length) < 8) {
         setEmailError('email can\'t be less than 8 characters')
-       } 
+       } else if (ValidateEmail(e.target.value) === false) {
+         setEmailError('You have entered an invalid email address!')
+       }
       else {
         setEmailError('')
         }
@@ -230,6 +275,8 @@ function Steps() {
         setNumberError('phone number must be 11 characters')
        } else if(Number.isInteger(parseInt(e.target.value) ) === false) {
         setNumberError('Only numbers allowed')
+      } else if (allnumeric(e.target.value) === false) {
+        setNumberError('Please input numeric characters only')
       }
       else {
         setNumberError('')
@@ -241,7 +288,9 @@ function Steps() {
 
       if ((e.target.value.length) < 3) {
         setCityError('city must be atleast 3 characters')
-       } 
+       } else if (allLetter(e.target.value) === false) {
+        setCityError('Please input alphabet characters only')
+      }
       else {
         setCityError('')
         }
@@ -251,9 +300,11 @@ function Steps() {
     const handleAddress = (e) => {
       setAddress(e.target.value)
 
-      if ((e.target.value.length) < 3) {
+      if ((e.target.value.length) < 10) {
         setAddressError('Address must be atleast 10 characters')
-       } 
+       } else if (alphanumeric(e.target.value) === false) {
+        setAddressError('Please input alphanumeric characters only')
+       }
       else {
         setAddressError('')
         }
@@ -267,6 +318,8 @@ function Steps() {
         setIppisError('IPPIS Number must be atleast 7 characters')
        } else if(Number.isInteger(parseInt(e.target.value) ) === false) {
         setIppisError('Only numbers allowed')
+       } else if (allnumeric(e.target.value) === false) {
+        setIppisError('Please input numeric characters only')
        }
       else {
         setIppisError('')
@@ -279,7 +332,9 @@ function Steps() {
 
       if ((e.target.value.length) < 5) {
         setWorkError('Place of work must be atleast 5 characters')
-       } 
+       } else if (alphanumeric(e.target.value) === false) {
+        setWorkError('Please input alphanumeric characters only')
+       }
       else {
         setWorkError('')
         }
@@ -293,6 +348,8 @@ function Steps() {
         setAccountError('Account Number must be atleast 7 characters')
        } else if(Number.isInteger(parseInt(e.target.value) ) === false) {
         setAccountError('Only numbers allowed')
+       } else if (allnumeric(e.target.value) === false) {
+        setAccountError('Please input numeric characters only')
        }
       else {
         setAccountError('')
@@ -304,8 +361,11 @@ function Steps() {
 
       setPassword(e.target.value)
 
-      if ((e.target.value.length) < 8) {
-        setPasswordError('Password must be atleast 7 characters')
+      if ((e.target.value.length) < 10) {
+        setPasswordError('Password must be atleast 10 characters')
+       } 
+       else if (checkPassword(e.target.value) === false) {
+        setPasswordError('Password must be at least one number, one lowercase and one uppercase letter')
        } 
       else {
         setPasswordError('')
@@ -317,8 +377,8 @@ function Steps() {
 
       setConfirmPassword(e.target.value)
 
-      if ((e.target.value.length) < 8) {
-        setConfirmPasswordError('Password must be atleast 7 characters')
+      if ((e.target.value.length) < 10) {
+        setConfirmPasswordError('Password must be atleast 10 characters')
        } else if(password !== e.target.value) {
         setConfirmPasswordError('Password did not match')
        }
@@ -338,7 +398,7 @@ function Steps() {
       setAuthenticating(true)
 
 
-      axios.post('https://fathomless-beach-00475.herokuapp.com/api/v1/rest-auth/registration/', {
+      axios.post('http://127.0.0.1:8000/api/v1/rest-auth/registration/', {
         email: email,
         password1: password,
         password2: confirmPassword,
@@ -350,18 +410,27 @@ function Steps() {
 
       var temp_token = response.data.key
 
-      axios.get(`https://fathomless-beach-00475.herokuapp.com/apis/v1/get_user/${email}`, {
+      axios.get(`http://127.0.0.1:8000/apis/v1/get_user/${email}`, {
         headers: {
           'Authorization': `Token ${temp_token}`
         }
       }).then((res) => {
-
+        console.log(res.data);
+        console.log(res.data.fields['is_staff']);
         setPk(res.data.pk)
+        if (res.data.fields['is_staff'] === false) {
+          setStatus('regular')
+        } else {
+          setStatus('admin')
+        }
+        
+       
         console.log(pk);
+        console.log(status);
 
         var temp_pk = res.data.pk
 
-        axios.post(`https://fathomless-beach-00475.herokuapp.com/apis/v1/profile/`, {
+        axios.post(`http://127.0.0.1:8000/apis/v1/profile/`, {
           user: temp_pk,
           title: title,
           first_name: f_name,
