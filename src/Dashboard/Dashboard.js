@@ -144,7 +144,7 @@ function Dashboard() {
             <div className='row'>
               <div className='col-sm-6 mb-4 info'>
                 <h3>Personal Info</h3>
-                <p><strong>Full Name: </strong>{profile.title.toUpperCase()} {profile.first_name} {profile.last_name}</p>
+                <p><strong>Full Name: </strong>{profile.title} {profile.first_name} {profile.last_name}</p>
                 <p><strong>DoB:</strong> {profile.date_of_birth}</p>
                 <p><strong>Gender:</strong> {profile.gender}</p>
                 <p><strong>Phone number:</strong> {profile.phone_number}</p>
@@ -152,7 +152,7 @@ function Dashboard() {
               <div className='col-sm-6 mb-4 info'>
                 <h3>Account Info</h3>
                 <p><strong>Account number:</strong> {profile.account_number}</p>
-                <p><strong>Salary bank name:</strong> {profile.salary_bank_name.toUpperCase()} Bank</p>
+                <p><strong>Salary bank name:</strong> {profile.salary_bank_name} Bank</p>
                 <p><strong>Place of work:</strong> {profile.place_of_work}</p>
                 <p><strong>IPPIS number:</strong> {profile.ippis_number}</p>
               </div>
