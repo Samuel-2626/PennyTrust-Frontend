@@ -41,7 +41,7 @@ function Footer() {
             </Col>
             <Col sm={4}>
             <img src={logo} alt="" className="img-fluid border-radius" />
-            <a href="/apply"><Button variant="primary" size="lg" className="btn-2">Apply Now</Button></a>
+            <Button variant="primary" size="lg" className="btn-2">Apply Now</Button>
             </Col>
           </Row>
 

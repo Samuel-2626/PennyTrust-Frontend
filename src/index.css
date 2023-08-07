@@ -318,3 +318,13 @@ input[type="date"]:valid::before {
   font-weight: bolder;
   text-align: center;
 }
+
+.info {
+  border: 1px solid var(--grey);
+  text-align: center;
+  padding: 15px;
+}
+
+.info h3 {
+  color: var(--primary);
+}

@@ -44,7 +44,7 @@ function Dashboard() {
 
 
   const handleLogin = () => {
-    axios.post(`https://fathomless-beach-00475.herokuapp.com/api/v1/rest-auth/login/`, {
+    axios.post(`https://samuel.professortorimiro.info/api/v1/rest-auth/login/`, {
         email: email,
         password: password
       }).then((res) => {
@@ -53,7 +53,7 @@ function Dashboard() {
 
         var temp_token = res.data.key
 
-        axios.get(`https://fathomless-beach-00475.herokuapp.com/apis/v1/get_user/${email}`, {
+        axios.get(`https://samuel.professortorimiro.info/apis/v1/get_user/${email}`, {
           headers: {
             'Authorization': `Token ${temp_token}`
           }
@@ -106,7 +106,7 @@ function Dashboard() {
 
   useEffect(() => (
 
-    axios.get(`https://fathomless-beach-00475.herokuapp.com/apis/v1/get_profile/${pk}`, {
+    axios.get(`https://samuel.professortorimiro.info/apis/v1/get_profile/${pk}`, {
         headers: {
           'Authorization': `Token ${token}`
         }
@@ -135,19 +135,40 @@ function Dashboard() {
     return (
       <div className="m-5">
         <Container>
-          <h2>Hello {profile.first_name}</h2>
-          <p>welcome to your dashboard</p>
-          <p><strong>Here are some of your details:</strong></p>
+          <h3>Hi, welcome to your dashboard</h3>
           
-         <ul>
-           <li>{profile.first_name} {profile.last_name}</li>
-           <li>{profile.date_of_birth}</li>
-           <li>{profile.gender}</li>
-           <li>{profile.address}</li>
-           <li>{profile.title}</li>
-           <li>{profile.phone_number}</li>
-           <li>{status}</li>
-         </ul>
+          <hr />
+
+          <div className='container'>
+<br />
+            <div className='row'>
+              <div className='col-sm-6 mb-4 info'>
+                <h3>Personal Info</h3>
+                <p><strong>Full Name: </strong>{profile.title.toUpperCase()} {profile.first_name} {profile.last_name}</p>
+                <p><strong>DoB:</strong> {profile.date_of_birth}</p>
+                <p><strong>Gender:</strong> {profile.gender}</p>
+                <p><strong>Phone number:</strong> {profile.phone_number}</p>
+              </div>
+              <div className='col-sm-6 mb-4 info'>
+                <h3>Account Info</h3>
+                <p><strong>Account number:</strong> {profile.account_number}</p>
+                <p><strong>Salary bank name:</strong> {profile.salary_bank_name.toUpperCase()} Bank</p>
+                <p><strong>Place of work:</strong> {profile.place_of_work}</p>
+                <p><strong>IPPIS number:</strong> {profile.ippis_number}</p>
+              </div>
+              <div className='col-sm-6 mb-4 info'>
+                <h3>Loan Info</h3>
+                <p><strong>Loan amount:</strong> {profile.loan_amount}</p>
+                <p><strong>Tenor:</strong> {profile.tenor} months</p>
+              </div>
+              <div className='col-sm-6 mb-4 info'>
+                <h3>Additional Info</h3>
+                <p><strong>Address:</strong> {profile.address}</p>
+                <p><strong>City:</strong> {profile.city}</p>
+                <p><strong>State:</strong> {profile.state}</p>
+              </div>
+            </div>
+          </div>
           
         </Container>
       </div>

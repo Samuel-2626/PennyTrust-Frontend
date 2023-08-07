@@ -22,7 +22,7 @@ function Navigation() {
 
   const handleLogout = () => {
     
-    axios.post(`https://fathomless-beach-00475.herokuapp.com/api/v1/rest-auth/logout/`, {
+    axios.post(`https://samuel.professortorimiro.info/api/v1/rest-auth/logout/`, {
         headers: {
           'Authorization': `Token ${token}`
         }
